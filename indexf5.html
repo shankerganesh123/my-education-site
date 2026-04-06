@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tutoroot — One-to-One Online Tuition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#005630;
+  --green-light:#006e3e;
+  --green-pale:#e8f5ee;
+  --amber:#f59e0b;
+  --amber-light:#fbbf24;
+  --amber-pale:#fef3c7;
+  --cream:#fdfaf4;
+  --off-white:#f8f5ef;
+  --ink:#0d1f15;
+  --muted:#5c7068;
+  --border:#d9e8df;
+  --white:#ffffff;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:22px;
+  --radius-xl:32px;
+  --font-display:'Poppins',sans-serif;
+  --font-body:'Poppins',sans-serif;
+  --font-ui:'Poppins',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--ink);overflow-x:hidden;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(253,250,244,0.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 4px 24px rgba(0,86,48,.08)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-mark{width:38px;height:38px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-ui);font-weight:700;font-size:17px;letter-spacing:-0.5px}
+.nav-logo-text{font-family:var(--font-ui);font-weight:700;font-size:19px;color:var(--ink);letter-spacing:-0.5px}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn-ghost{font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--green);background:none;border:1.5px solid var(--border);padding:8px 18px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s}
+.btn-ghost:hover{border-color:var(--green);background:var(--green-pale)}
+.btn-primary{font-family:var(--font-ui);font-size:14px;font-weight:600;color:#fff;background:var(--green);border:none;padding:9px 20px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--green-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,86,48,.25)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:none}
+.ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:68px;left:0;right:0;background:var(--cream);border-bottom:1px solid var(--border);padding:16px 5vw 24px;z-index:99;transform:translateY(-10px);opacity:0;pointer-events:none;transition:all .3s}
+.mobile-nav.open{transform:translateY(0);opacity:1;pointer-events:all}
+.mobile-nav a{display:block;font-family:var(--font-ui);font-size:15px;font-weight:500;color:var(--muted);text-decoration:none;padding:11px 0;border-bottom:1px solid var(--border)}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav .mobile-btns{display:flex;gap:10px;margin-top:14px}
+.mobile-nav .mobile-btns button{flex:1}
+
+/* ── HERO ── */
+.hero{min-height:100vh;padding:108px 5vw 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;background:var(--green);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(245,158,11,.12) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.05) 0%,transparent 40%);pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;animation:gridDrift 12s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:32px 32px}}
+.hero-left{position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:6px 16px;border-radius:999px;font-family:var(--font-ui);font-size:12px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:28px;animation:fadeUp .8s ease both}
+.hero-badge-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pulseDot 1.4s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero-title{font-family:var(--font-display);font-size:clamp(36px,5.5vw,72px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.5px;margin-bottom:12px;animation:fadeUp .8s .1s ease both}
+.hero-title-accent{color:var(--amber);font-style:normal;display:inline-block}
+.hero-rotate-wrap{display:inline-block;position:relative;overflow:hidden;vertical-align:bottom;min-width:200px}
+.hero-rotate-word{display:block;color:var(--amber);font-weight:700;transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .4s ease;position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(100%)}
+.hero-rotate-word.active{opacity:1;transform:translateY(0);position:relative}
+.hero-rotate-word.out{opacity:0;transform:translateY(-100%);position:absolute}
+.hero-desc{font-size:16px;color:rgba(255,255,255,.75);line-height:1.7;max-width:460px;margin-bottom:36px;animation:fadeUp .8s .2s ease both}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .8s .3s ease both}
+.btn-amber{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--ink);background:var(--amber);border:none;padding:14px 28px;border-radius:var(--radius-md);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.btn-amber:hover{background:var(--amber-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,158,11,.35)}
+.btn-outline-white{font-family:var(--font-ui);font-size:15px;font-weight:500;color:#fff;background:transparent;border:1.5px solid rgba(255,255,255,.35);padding:14px 28px;border-radius:var(--radius-md);cursor:pointer;transition:all .25s}
+.btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+.hero-stats{display:flex;gap:24px;margin-top:40px;animation:fadeUp .8s .4s ease both}
+.hero-stat{text-align:left}
+.hero-stat-num{font-family:var(--font-ui);font-size:26px;font-weight:700;color:#fff;line-height:1}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px}
+.hero-stat-divider{width:1px;background:rgba(255,255,255,.15)}
+.hero-right{position:relative;z-index:2;animation:fadeUp .8s .2s ease both}
+.hero-card-main{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:28px;backdrop-filter:blur(12px)}
+.hero-img-slider{border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;position:relative}
+.hero-img-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
+.hero-img-slider img.active{opacity:1}
+.slider-dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
+.slider-dot.active{width:20px;border-radius:3px;background:var(--amber)}
+.hero-floating{position:absolute;background:rgba(255,255,255,.95);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-md);padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.15);backdrop-filter:blur(12px)}
+.hero-floating-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.hero-floating-text p:first-child{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink)}
+.hero-floating-text p:last-child{font-size:11px;color:var(--muted)}
+.float-1{top:-20px;left:-20px;animation:bob 4s ease-in-out infinite}
+.float-2{bottom:-16px;right:-16px;animation:bob 4s ease-in-out infinite 1.5s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ── SHARED ── */
+.section{padding:80px 5vw}
+.section-alt{background:var(--off-white)}
+.section-green{background:var(--green);color:#fff}
+.container{max-width:1200px;margin:0 auto}
+.badge-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:#fff;padding:5px 14px;border-radius:999px;font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--muted);margin-bottom:16px}
+.badge-pill-green{background:var(--green-pale);border-color:rgba(0,86,48,.2);color:var(--green)}
+.badge-pill-amber{background:var(--amber-pale);border-color:rgba(245,158,11,.3);color:#92400e}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);font-weight:700;line-height:1.15;letter-spacing:-0.5px}
+.section-title em{font-style:italic;color:var(--amber)}
+.section-title .green{color:var(--green)}
+.section-title .white{color:#fff}
+.section-desc{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;margin-top:14px}
+.section-desc-white{color:rgba(255,255,255,.7)}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── PROGRAMS ── */
+.programs-strip{background:#fff;padding:0 5vw;margin-top:-2px}
+.programs-inner{max-width:1200px;margin:0 auto;padding:48px 0}
+.programs-label{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.programs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.prog-card{background:var(--off-white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px 18px 18px;cursor:pointer;text-decoration:none;transition:all .28s;display:flex;flex-direction:column;justify-content:space-between;min-height:140px;position:relative;overflow:hidden}
+.prog-card::after{content:'';position:absolute;inset:0;background:var(--green);opacity:0;transition:opacity .3s}
+.prog-card:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,86,48,.12)}
+.prog-card:hover::after{opacity:.04}
+.prog-board{font-family:var(--font-ui);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
+.prog-name{font-family:var(--font-display);font-size:26px;font-weight:400;color:var(--ink);line-height:1}
+.prog-sub{font-size:12px;color:var(--muted);margin-top:6px}
+.prog-arrow{width:28px;height:28px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;margin-top:12px;flex-shrink:0}
+.prog-arrow svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.feat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;transition:all .3s;display:flex;gap:18px;align-items:flex-start}
+.feat-card:hover{box-shadow:0 8px 32px rgba(0,86,48,.1);transform:translateY(-2px)}
+.feat-icon{width:48px;height:48px;border-radius:12px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.feat-title{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.feat-desc{font-size:14px;color:var(--muted);line-height:1.6}
+.feat-list{display:flex;flex-direction:column;gap:12px}
+.feat-img-wrap{border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:5/6;position:relative}
+.feat-img-wrap img{width:100%;height:100%;object-fit:cover}
+.feat-img-badge{position:absolute;bottom:20px;left:20px;background:#fff;border-radius:var(--radius-md);padding:14px 18px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.feat-img-badge p:first-child{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)}
+.feat-img-badge p:last-child{font-size:12px;color:var(--muted);margin-top:2px}
+.feat-img-stat{position:absolute;top:20px;right:20px;background:var(--green);border-radius:var(--radius-md);padding:12px 16px;color:#fff;text-align:center}
+.feat-img-stat p:first-child{font-family:var(--font-ui);font-size:22px;font-weight:700}
+.feat-img-stat p:last-child{font-size:11px;opacity:.75;margin-top:1px}
+
+/* ── MARQUEE ── */
+.marquee-section{overflow:hidden;padding:20px 0;background:var(--amber);position:relative}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marqueeScroll 28s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:20px;padding:0 20px;font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--ink);white-space:nowrap}
+.marquee-star{color:var(--green);font-size:18px}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SUBJECTS ── */
+.subjects-section{background:var(--green);padding:80px 5vw}
+.subjects-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.subject-chip{font-family:var(--font-ui);font-size:14px;font-weight:500;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2);padding:10px 20px;border-radius:999px;cursor:pointer;transition:all .25s;background:rgba(255,255,255,.06)}
+.subject-chip:hover,.subject-chip.active{background:var(--amber);color:var(--ink);border-color:var(--amber);font-weight:600}
+
+/* ── HOW IT WORKS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:48px}
+.steps-grid::before{content:'';position:absolute;top:36px;left:10%;right:10%;height:1px;background:var(--border);z-index:0}
+.step{text-align:center;position:relative;z-index:1;padding:0 16px}
+.step-num{width:72px;height:72px;border-radius:50%;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--font-display);font-size:26px;font-weight:400;color:var(--green);position:relative;transition:all .4s}
+.step-num.active,.step:hover .step-num{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 8px 24px rgba(0,86,48,.25)}
+.step-icon{font-size:26px;line-height:1}
+.step-title{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,var(--green) 0%,#004525 100%);padding:72px 5vw;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 30% 50%,rgba(245,158,11,.15) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(255,255,255,.04) 0%,transparent 50%);pointer-events:none}
+.cta-title{font-family:var(--font-display);font-size:clamp(28px,4vw,52px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:16px;position:relative;z-index:1}
+.cta-title em{font-style:italic;color:var(--amber)}
+.cta-desc{font-size:16px;color:rgba(255,255,255,.7);max-width:480px;margin:0 auto 36px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* ── ONE TO ONE ── */
+.oto-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.check-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);font-size:15px;color:var(--ink);line-height:1.5;transition:all .25s}
+.check-list li:hover{border-color:var(--green);box-shadow:0 4px 16px rgba(0,86,48,.08)}
+.check-icon{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-icon svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5}
+.oto-img{border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:4/5}
+.oto-img img{width:100%;height:100%;object-fit:cover}
+
+/* ── TESTIMONIALS ── */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.test-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:24px;transition:all .3s}
+.test-card:hover{background:rgba(255,255,255,.13);transform:translateY(-4px)}
+.test-stars{color:var(--amber);font-size:14px;letter-spacing:1px;margin-bottom:14px}
+.test-quote{font-size:14px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:20px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
+.test-name{font-family:var(--font-ui);font-size:13px;font-weight:600;color:#fff}
+.test-grade{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);margin-top:48px;overflow:hidden}
+.stat-box{padding:28px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+.stat-box:last-child{border-right:none}
+.stat-num{font-family:var(--font-display);font-size:40px;color:#fff;line-height:1}
+.stat-num em{color:var(--amber);font-style:normal}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.55);font-family:var(--font-ui);font-weight:500;margin-top:4px}
+
+/* ── FAQ ── */
+.faq-list{max-width:760px;margin:40px auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;transition:all .3s}
+.faq-item:hover{border-color:rgba(0,86,48,.3)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border:none;background:none;cursor:pointer;font-family:var(--font-ui);font-size:15px;font-weight:500;color:var(--ink);text-align:left;gap:16px}
+.faq-icon{width:28px;height:28px;border-radius:8px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.faq-icon svg{width:14px;height:14px;stroke:var(--green);stroke-width:2.5;transition:transform .3s}
+.faq-item.open .faq-icon{background:var(--green)}
+.faq-item.open .faq-icon svg{stroke:#fff;transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border)}
+.faq-a-inner p{padding-top:14px}
+
+/* ── COMMITMENT ── */
+.commit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.commit-card{background:var(--green-pale);border:1px solid rgba(0,86,48,.12);border-radius:var(--radius-lg);padding:22px;transition:all .3s}
+.commit-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,86,48,.1)}
+.commit-card-title{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--green);margin-bottom:6px}
+.commit-card-desc{font-size:14px;color:var(--muted);line-height:1.6}
+.commit-emoji{font-size:28px;margin-bottom:12px}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:#fff}
+.footer-main{padding:64px 5vw 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;max-width:1280px;margin:0 auto}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin:14px 0 20px}
+.footer-socials{display:flex;gap:8px}
+.social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;text-decoration:none;color:#fff;font-size:13px;font-weight:600}
+.social-btn:hover{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.footer-col h4{font-family:var(--font-ui);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:18px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.footer-contact-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.footer-contact-text a,.footer-contact-text p{font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;line-height:1.5}
+.footer-contact-text a:hover{color:#fff}
+.footer-bar{border-top:1px solid rgba(255,255,255,.08);padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;max-width:1280px;margin:0 auto}
+.footer-bar p{font-size:13px;color:rgba(255,255,255,.35)}
+.footer-bar a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none}
+.footer-bar a:hover{color:#fff}
+.footer-stats{background:var(--amber);padding:24px 5vw}
+.footer-stats-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
+.footer-stat{padding:0 20px;border-right:1px solid rgba(0,0,0,.1)}
+.footer-stat:last-child{border-right:none}
+.footer-stat-num{font-family:var(--font-display);font-size:30px;color:var(--ink)}
+.footer-stat-lbl{font-size:12px;color:#92400e;font-family:var(--font-ui);font-weight:500;margin-top:2px}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:90px}
+  .hero-right{order:-1}
+  .features-grid{grid-template-columns:1fr}
+  .oto-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+  .steps-grid::before{display:none}
+  .test-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .stats-row .stat-box:nth-child(2){border-right:none}
+  .stats-row .stat-box:nth-child(3){border-right:1px solid rgba(255,255,255,.1);border-top:1px solid rgba(255,255,255,.1)}
+  .stats-row .stat-box:nth-child(4){border-right:none;border-top:1px solid rgba(255,255,255,.1)}
+  .footer-main{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-stats-inner{grid-template-columns:repeat(2,1fr)}
+  .footer-stat:nth-child(2){border-right:none}
+  .footer-stat:nth-child(3){border-top:1px solid rgba(0,0,0,.1);border-right:1px solid rgba(0,0,0,.1)}
+  .footer-stat:nth-child(4){border-top:1px solid rgba(0,0,0,.1);border-right:none}
+  .commit-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-actions{display:none}
+  .ham{display:flex}
+  .mobile-nav{display:block}
+  .hero{padding:90px 5vw 60px}
+  .hero-stats{gap:16px}
+  .programs-grid{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .oto-grid .oto-img{display:none}
+  .footer-main{grid-template-columns:1fr;gap:28px}
+  .hero-floating{display:none}
+  .float-1,.float-2{display:none}
+  .section-title{font-size:28px}
+}
+@media(max-width:480px){
+  .programs-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}
+  .hero-btns button{width:100%;justify-content:center}
+  .cta-btns{flex-direction:column;align-items:center}
+  .footer-stats-inner{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <span class="nav-logo-text">Tutoroot</span>
+  </a>
+  <div class="nav-links">
+    <a href="#programs">Programs</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-ghost">Login</button>
+    <button class="btn-primary">Book Free Demo</button>
+  </div>
+  <button class="ham" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#programs">Programs</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <div class="mobile-btns">
+    <button class="btn-ghost">Login</button>
+    <button class="btn-primary">Book Free Demo</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Live tutors across 40+ countries
+    </div>
+
+    <h1 class="hero-title">
+      Expert<br>
+      <span class="hero-rotate-wrap" id="heroWordWrap">
+        <span class="hero-rotate-word active">Online Tuition</span>
+        <span class="hero-rotate-word">1-on-1 Learning</span>
+        <span class="hero-rotate-word">Your Success</span>
+      </span>
+      <br>Platform
+    </h1>
+
+    <p class="hero-desc">World-class education with dedicated tutors. Learn at your own pace, achieve your goals, and unlock your full potential with personalised one-to-one sessions.</p>
+
+    <div class="hero-btns">
+      <button class="btn-amber">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        Request a Callback
+      </button>
+      <button class="btn-outline-white">Book Free Demo →</button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">10K+</div>
+        <div class="hero-stat-label">Happy Students</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">500+</div>
+        <div class="hero-stat-label">Expert Tutors</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">95%</div>
+        <div class="hero-stat-label">Success Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-floating float-1">
+      <div class="hero-floating-icon" style="background:#fef3c7;">📚</div>
+      <div class="hero-floating-text">
+        <p>Complete Study Material</p>
+        <p>Full syllabus coverage</p>
+      </div>
+    </div>
+
+    <div class="hero-card-main">
+      <div class="hero-img-slider" id="heroSlider">
+        <img src="personalised-learning.jpg" alt="Personalised Learning" class="active" onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80'"/>
+        <img src="expert.png" alt="Expert Tutor" onerror="this.src='https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=700&q=80'"/>
+        <img src="online-tuition.jpg" alt="Online Learning" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700&q=80'"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="width:8px;height:8px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulseDot 1.4s ease-in-out infinite"></span>
+          <span style="font-family:var(--font-ui);font-size:12px;font-weight:600;color:rgba(255,255,255,.8)">Live Classes Available</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <span style="font-size:11px;color:var(--amber)">★★★★★</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.7);font-family:var(--font-ui);font-weight:500">4.9/5</span>
+        </div>
+      </div>
+      <div class="slider-dots" id="sliderDots">
+        <div class="slider-dot active"></div>
+        <div class="slider-dot"></div>
+        <div class="slider-dot"></div>
+      </div>
+    </div>
+
+    <div class="hero-floating float-2">
+      <div class="hero-floating-icon" style="background:var(--green-pale);">📊</div>
+      <div class="hero-floating-text">
+        <p>95% Success Rate</p>
+        <p>Proven exam results</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<div id="programs" class="programs-strip">
+  <div class="programs-inner">
+    <div class="programs-label reveal">Our Programs</div>
+    <div class="programs-grid">
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Class 6–12</div>
+          <div class="prog-name">CBSE</div>
+          <div class="prog-sub">Master the basics with expert guidance</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Class 6–12</div>
+          <div class="prog-name">ICSE</div>
+          <div class="prog-sub">Comprehensive learning with expert tutors</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Class 6–12</div>
+          <div class="prog-name">IB</div>
+          <div class="prog-sub">Global curriculum, expert guidance</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Class 6–12</div>
+          <div class="prog-name">IGCSE</div>
+          <div class="prog-sub">International standard, personalised support</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">All Boards</div>
+          <div class="prog-name">State Board</div>
+          <div class="prog-sub">Region-specific curriculum mastery</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Competitive</div>
+          <div class="prog-name">JEE / NEET</div>
+          <div class="prog-sub">Targeted exam preparation</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Class 6–10</div>
+          <div class="prog-name">Foundation</div>
+          <div class="prog-sub">Build a strong academic base</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+      <a href="#" class="prog-card reveal">
+        <div>
+          <div class="prog-board">Open</div>
+          <div class="prog-name">NIOS</div>
+          <div class="prog-sub">Flexible open board support</div>
+        </div>
+        <div class="prog-arrow"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item"><span class="marquee-star">★</span>Mathematics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Physics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Chemistry</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Biology</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>English</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Computer Science</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Accountancy</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Economics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>History</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Geography</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Mathematics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Physics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Chemistry</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Biology</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>English</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Computer Science</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Accountancy</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Economics</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>History</span>
+    <span class="marquee-item"><span class="marquee-star">★</span>Geography</span>
+  </div>
+</div>
+
+<!-- FEATURES / EMPOWERING -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="features-grid">
+      <div>
+        <div class="badge-pill badge-pill-green reveal">
+          <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block"></span>
+          Complete Learning Support
+        </div>
+        <h2 class="section-title reveal">Empowering students with <em>everything</em> they need</h2>
+        <p class="section-desc reveal">From expert faculty and personalised study plans to continuous performance tracking and dedicated doubt-solving — every student learns with confidence.</p>
+
+        <div class="feat-list" style="margin-top:32px">
+          <div class="feat-card reveal">
+            <div class="feat-icon">🎓</div>
+            <div>
+              <div class="feat-title">Excellent Faculty</div>
+              <div class="feat-desc">1:1 LIVE classes with expert tutors from top institutions using modern, proven teaching methods.</div>
+            </div>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon">🗓️</div>
+            <div>
+              <div class="feat-title">Tailored Structure</div>
+              <div class="feat-desc">Flexible timings and personalised study plans that fit seamlessly around school schedules.</div>
+            </div>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon">📈</div>
+            <div>
+              <div class="feat-title">Continuous Monitoring</div>
+              <div class="feat-desc">Regular PTMs, assessments, and detailed performance reviews to track and accelerate growth.</div>
+            </div>
+          </div>
+          <div class="feat-card reveal">
+            <div class="feat-icon">💬</div>
+            <div>
+              <div class="feat-title">Doubt Clearing Sessions</div>
+              <div class="feat-desc">Dedicated doubt-clearing sessions ensure no concept goes unexplained.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative" class="reveal">
+        <div class="feat-img-wrap">
+          <img src="hero.webp" alt="Student learning" onerror="this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80'"/>
+        </div>
+        <div class="feat-img-badge">
+          <p>Loved by 10,000+ students</p>
+          <p>⭐⭐⭐⭐⭐ Rated 4.9/5</p>
+        </div>
+        <div class="feat-img-stat">
+          <p>95%</p>
+          <p>Success Rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div class="badge-pill badge-pill-amber reveal" style="margin:0 auto 16px">
+        <span style="width:6px;height:6px;background:var(--amber);border-radius:50%;display:inline-block"></span>
+        Simple Process
+      </div>
+      <h2 class="section-title reveal">How Tutoroot <em>works</em></h2>
+      <p class="section-desc reveal" style="margin:14px auto 0">Get started in 4 easy steps and be learning with your dedicated tutor in no time.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num active">📋</div>
+        <div class="step-title">Choose Your Program</div>
+        <div class="step-desc">Select your board, class, and subjects. We'll match you with the right tutor.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">🎯</div>
+        <div class="step-title">Book a Free Demo</div>
+        <div class="step-desc">Experience a live 1-on-1 session before committing to any plan.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">📅</div>
+        <div class="step-title">Set Your Schedule</div>
+        <div class="step-desc">Pick timings that work for you — mornings, evenings, weekends, your call.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">🏆</div>
+        <div class="step-title">Start Achieving</div>
+        <div class="step-desc">Learn, grow, and watch your grades improve with personalised guidance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2 class="cta-title">Ready to <em>unlock</em> your<br>full potential?</h2>
+  <p class="cta-desc">Invest in your success today. Join 10,000+ students who have transformed their academic journey with Tutoroot.</p>
+  <div class="cta-btns">
+    <button class="btn-amber">Book FREE Demo Class</button>
+    <button class="btn-outline-white">Talk to an Expert</button>
+  </div>
+</div>
+
+<!-- ONE TO ONE -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="oto-grid">
+      <div class="oto-img reveal">
+        <img src="hero.webp" alt="One to one tuition" onerror="this.src='https://images.unsplash.com/photo-1588702547923-7408f207e333?w=600&q=80'"/>
+      </div>
+      <div>
+        <div class="badge-pill badge-pill-green reveal">
+          <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block"></span>
+          One-to-One Online Tuition
+        </div>
+        <h2 class="section-title reveal">Classes 6 to 12 — <em>personalised</em> just for your child</h2>
+        <p class="section-desc reveal">Every student gets the undivided attention they deserve. No distractions. No waiting. Just focused, effective learning.</p>
+        <ul class="check-list">
+          <li class="reveal">
+            <div class="check-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
+            Personalised attention — every doubt is cleared effectively in real time.
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
+            Customised lesson plans based on each student's unique pace and learning style.
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
+            Interactive sessions that encourage active participation and deeper understanding.
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
+            Focused guidance from expert tutors ensuring a strong foundation in all subjects.
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
+            Dedicated tutor continuity — same tutor tracks progress over time for best results.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITMENT -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start" class="commit-main-grid">
+      <div>
+        <div class="badge-pill badge-pill-green reveal">
+          <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block"></span>
+          Our Commitment
+        </div>
+        <h2 class="section-title reveal">Why thousands of <em>families</em> trust Tutoroot</h2>
+        <p class="section-desc reveal">We go far beyond textbook education to ensure every student builds genuine confidence, clarity, and career-readiness.</p>
+
+        <div style="margin-top:28px;background:var(--green);border-radius:var(--radius-lg);padding:28px;color:#fff;" class="reveal">
+          <h3 style="font-family:var(--font-display);font-size:24px;font-weight:400;color:#fff;margin-bottom:10px">Have questions?</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:18px">Talk to our academic experts for personalised guidance and find the perfect plan for your child.</p>
+          <button class="btn-amber">Talk to Experts →</button>
+        </div>
+      </div>
+
+      <div class="commit-grid">
+        <div class="commit-card reveal">
+          <div class="commit-emoji">🚀</div>
+          <div class="commit-card-title">Career-Oriented Training</div>
+          <div class="commit-card-desc">We prepare students for exams and future opportunities by developing critical thinking and analytical skills.</div>
+        </div>
+        <div class="commit-card reveal">
+          <div class="commit-emoji">📖</div>
+          <div class="commit-card-title">Comprehensive Support</div>
+          <div class="commit-card-desc">Beyond textbooks — building conceptual clarity and real problem-solving ability in every student.</div>
+        </div>
+        <div class="commit-card reveal">
+          <div class="commit-emoji">👩‍🏫</div>
+          <div class="commit-card-title">Highly Experienced Faculty</div>
+          <div class="commit-card-desc">Tutors from top institutions using modern methods to ensure effective, engaging learning experiences.</div>
+        </div>
+        <div class="commit-card reveal">
+          <div class="commit-emoji">📊</div>
+          <div class="commit-card-title">Continuous Monitoring</div>
+          <div class="commit-card-desc">Regular assessments, parent-teacher meetings, and skill analysis keep every student on track.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-green" id="testimonials">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="badge-pill reveal" style="margin:0 auto 16px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.8)">
+        <span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulseDot 1.4s ease-in-out infinite"></span>
+        Student Reviews
+      </div>
+      <h2 class="section-title reveal"><span class="white">Trusted by parents,</span> <em>loved</em> <span class="white">by students</span></h2>
+      <p class="section-desc section-desc-white reveal" style="margin:14px auto 0">Real results from real students across India and around the world.</p>
+    </div>
+
+    <div class="stats-row reveal">
+      <div class="stat-box"><div class="stat-num">10<em>K+</em></div><div class="stat-lbl">Happy Students</div></div>
+      <div class="stat-box"><div class="stat-num">500<em>+</em></div><div class="stat-lbl">Expert Tutors</div></div>
+      <div class="stat-box"><div class="stat-num">100<em>K+</em></div><div class="stat-lbl">Live Classes Delivered</div></div>
+      <div class="stat-box"><div class="stat-num">95<em>%</em></div><div class="stat-lbl">Student Success Rate</div></div>
+    </div>
+
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"With Tutoroot, I got 1:1 personalised attention and now I genuinely enjoy organic chemistry. My marks went from 60% to 94%!"</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/v11.png" alt="Sai Shreya" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=11'"/>
+          <div>
+            <div class="test-name">Sai Shreya</div>
+            <div class="test-grade">Grade 12 · CBSE NEET</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"I've been with Tutoroot since 6th grade. Now in 12th, preparing for IIT JEE — my tutor knows exactly where I need help."</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/v22.png" alt="Arjun" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=22'"/>
+          <div>
+            <div class="test-name">Arjun</div>
+            <div class="test-grade">Grade 12 · CBSE IIT JEE</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Tutoroot has made a huge difference. My tutor breaks down even the toughest concepts into simple, easy-to-remember steps."</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/v33.png" alt="Mishika" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=33'"/>
+          <div>
+            <div class="test-name">Mishika</div>
+            <div class="test-grade">Grade 9 · CBSE</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"I scored 100% in both Physics and Chemistry. My faculty supported me conceptually and numerically. So happy with Tutoroot!"</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/t11.png" alt="Pranavi Reddy" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=44'"/>
+          <div>
+            <div class="test-name">Pranavi Reddy</div>
+            <div class="test-grade">Grade 12 · CBSE NEET</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Tutoroot helped me switch from IGCSE to IB board seamlessly. My tutors made all topics easier and less overwhelming."</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/t22.png" alt="Sabarish R" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=55'"/>
+          <div>
+            <div class="test-name">Sabarish R</div>
+            <div class="test-grade">Grade 9 · IB Board</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"My tutor created a non-judgmental space. I ask doubts freely now. Thanks to Tutoroot, I feel genuinely confident in Chemistry."</p>
+        <div class="test-author">
+          <img class="test-avatar" src="https://d3gh3vcsvrdqug.cloudfront.net/website/home/t33.png" alt="Zarka Khan" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=66'"/>
+          <div>
+            <div class="test-name">Zarka Khan</div>
+            <div class="test-grade">Grade 12 · CBSE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="badge-pill badge-pill-amber reveal" style="margin:0 auto 16px">
+        <span style="width:6px;height:6px;background:var(--amber);border-radius:50%;display:inline-block"></span>
+        FAQ
+      </div>
+      <h2 class="section-title reveal"><em>Frequently</em> asked questions</h2>
+      <p class="section-desc reveal" style="margin:14px auto 0">Everything you need to know about Tutoroot's online tutoring services.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          What is Tutoroot and how does it work?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Tutoroot is a one-to-one online tuition platform connecting students with expert tutors for live, personalised classes. Each session focuses on individual learning needs to improve concept clarity, confidence, and academic performance.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          Which boards and subjects does Tutoroot offer tuition for?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Tutoroot offers online tuition for CBSE, ICSE, IGCSE, IB, and State Boards for Classes 6–12, covering Maths, Physics, Chemistry, Biology, English, and exam preparation for IIT-JEE and NEET.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          How is one-to-one online tuition better than group classes?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>One-to-one tuition provides complete tutor attention, personalised pacing, and instant doubt resolution. Unlike group classes, learning is fully customised, helping students understand concepts faster and achieve better academic results.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          Does Tutoroot provide a dedicated tutor for students?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. Tutoroot assigns a dedicated tutor who tracks progress, understands learning gaps, and adapts teaching methods to ensure consistent improvement and long-term academic success.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          Does Tutoroot provide tests and assignments?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. Tutoroot provides regular tests and personalised assignments aligned with the school syllabus and exam pattern. These help track progress, strengthen weak areas, and reinforce learning through focused one-to-one online tuition.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          Can I book a free demo class before enrolling?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. Tutoroot offers a free one-to-one demo class, allowing students and parents to experience the teaching approach, tutor interaction, and platform features before enrolling in regular online tuition classes.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          Who benefits most from one-to-one online tuition at Tutoroot?
+          <div class="faq-icon"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Tutoroot's one-to-one online tuition benefits students needing personalised attention, concept clarity, or exam-focused preparation. It is ideal for students struggling in group classes and those preparing for board or competitive exams.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:4px">
+        <div class="nav-logo-mark">T</div>
+        <span class="nav-logo-text" style="color:#fff">Tutoroot</span>
+      </a>
+      <p>Tutoroot is a trusted online tuition platform helping students from Grades 6–12 excel. With expert tutors and personalised 1:1 classes, we make concepts simple and results achievable.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="https://www.instagram.com/tutoroot" target="_blank" aria-label="Instagram">In</a>
+        <a class="social-btn" href="https://www.facebook.com/tutoroot" target="_blank" aria-label="Facebook">Fb</a>
+        <a class="social-btn" href="https://in.linkedin.com/company/tutoroot" target="_blank" aria-label="LinkedIn">Li</a>
+        <a class="social-btn" href="https://www.youtube.com/@tutoroot" target="_blank" aria-label="YouTube">Yt</a>
+        <a class="social-btn" href="https://www.twitter.com/tutoroot" target="_blank" aria-label="Twitter">Tw</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="https://www.tutoroot.com/web/aboutus">About Us</a></li>
+        <li><a href="https://www.tutoroot.com/blog/">Blog</a></li>
+        <li><a href="https://www.tutoroot.com/web/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Boards & Exams</h4>
+      <ul>
+        <li><a href="https://www.tutoroot.com/cbse-online">CBSE</a></li>
+        <li><a href="https://www.tutoroot.com/icse-online-tuition">ICSE / ISC</a></li>
+        <li><a href="https://www.tutoroot.com/igcse-online-tuition">IGCSE / IB</a></li>
+        <li><a href="https://www.tutoroot.com/state-board-online-tuition">State Boards</a></li>
+        <li><a href="https://www.tutoroot.com/foundation">Foundation</a></li>
+        <li><a href="https://www.tutoroot.com/iit-online-classes">JEE / NEET</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Get In Touch</h4>
+      <div class="footer-contact-item">
+        <div class="footer-contact-icon">📞</div>
+        <div class="footer-contact-text">
+          <a href="tel:+917386694999">+91 73866 94999</a>
+          <p>Open Daily · 9 AM – 8 PM</p>
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <div class="footer-contact-icon">✉️</div>
+        <div class="footer-contact-text">
+          <a href="mailto:support@tutoroot.com">support@tutoroot.com</a>
+          <p>Reply within 24 hours</p>
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <div class="footer-contact-icon">📍</div>
+        <div class="footer-contact-text">
+          <p>Gowra Palladium 2nd Floor, Unit 203, Madhapur, HITEC City, Hyderabad, Telangana 500081</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-stats">
+    <div class="footer-stats-inner">
+      <div class="footer-stat"><div class="footer-stat-num">10K+</div><div class="footer-stat-lbl">Happy Students</div></div>
+      <div class="footer-stat"><div class="footer-stat-num">500+</div><div class="footer-stat-lbl">Expert Tutors</div></div>
+      <div class="footer-stat"><div class="footer-stat-num">100K+</div><div class="footer-stat-lbl">Learning Classes</div></div>
+      <div class="footer-stat"><div class="footer-stat-num">95%</div><div class="footer-stat-lbl">Success Rate</div></div>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid rgba(255,255,255,.08)">
+    <p style="font-size:13px;color:rgba(255,255,255,.35)">© 2026 Tutoroot Technologies. All rights reserved.</p>
+    <a href="https://www.tutoroot.com/web/terms-and-conditions" style="font-size:13px;color:rgba(255,255,255,.35);text-decoration:none">Terms & Conditions</a>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>20);
+});
+
+// Mobile menu
+const ham=document.getElementById('ham');
+const mobileNav=document.getElementById('mobileNav');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  ham.classList.remove('open');
+  mobileNav.classList.remove('open');
+}));
+
+// Hero word rotator (JS-driven, responsive)
+(function(){
+  const words = document.querySelectorAll('#heroWordWrap .hero-rotate-word');
+  if(!words.length) return;
+  let cur = 0;
+  setInterval(function(){
+    words[cur].classList.remove('active');
+    words[cur].classList.add('out');
+    const prev = cur;
+    cur = (cur + 1) % words.length;
+    words[cur].classList.add('active');
+    setTimeout(function(){ words[prev].classList.remove('out'); }, 500);
+  }, 3000);
+})();
+
+// Hero slider
+(function(){
+  const imgs=document.querySelectorAll('#heroSlider img');
+  const dots=document.querySelectorAll('#sliderDots .slider-dot');
+  let cur=0,timer;
+  function go(n){
+    imgs[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=n;
+    imgs[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function next(){go((cur+1)%imgs.length)}
+  timer=setInterval(next,4500);
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(timer);go(i);timer=setInterval(next,4500)}));
+})();
+
+// Reveal on scroll
+(function(){
+  const els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(el=>el.classList.add('visible'));return;
+  }
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(el=>obs.observe(el));
+})();
+
+// FAQ
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+// Commit grid responsiveness
+(function(){
+  function fixCommitGrid(){
+    const grid=document.querySelector('.commit-main-grid');
+    if(!grid)return;
+    if(window.innerWidth<768){
+      grid.style.gridTemplateColumns='1fr';
+    }else{
+      grid.style.gridTemplateColumns='1fr 1fr';
+    }
+  }
+  fixCommitGrid();
+  window.addEventListener('resize',fixCommitGrid);
+})();
+</script>
+</body>
+</html>
